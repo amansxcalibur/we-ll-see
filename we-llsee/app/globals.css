@@ -5,6 +5,30 @@
   --foreground: #171717;
 }
 
+.scroll-wrapper {
+  height: 200%;          
+  width: 100%;
+}
+
+.scroll-wrapper > img {
+  height: 50%;           
+  width: 100%;
+  object-fit: cover;
+}
+
+@keyframes vertical-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%); 
+  }
+}
+
+.animate-vertical-scroll {
+  animation: vertical-scroll 12s linear infinite;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
