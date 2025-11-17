@@ -9,7 +9,9 @@ export default function NavBar() {
                       rounded-full px-6 py-3 flex items-center justify-between">
 
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-2xl tracking-wide">We'llSEE</span>
+              <Link href={"/"}>
+                <span className="font-semibold text-2xl tracking-wide">We'llSEE</span>
+              </Link>
             </div>
 
             <ul className="flex gap-10 text-xl font-medium">
@@ -19,7 +21,8 @@ export default function NavBar() {
               </li>
 
               <li className="hover:bg-white/20 px-4 py-1 rounded-full cursor-pointer transition">
-                Leaderboard
+              <Link href={"/leaderboard"}> Leaderboard
+              </Link>
               </li>
 
               <li className="hover:bg-white/20 px-4 py-1 rounded-full cursor-pointer transition">
@@ -29,7 +32,9 @@ export default function NavBar() {
             </ul>
             <div className="flex gap-4">
               <button className="px-5 py-2 rounded-full bg-black border border-gray-800 text-white text-lg font-medium transition">
+                <Link href={"https://github.com/amansxcalibur/we-ll-see"} target="_blank">
                 Contribute on GitHub ★
+                </Link>
               </button>
               <Link className="" href={"/profile"} >
                   <Image src={profilePic} title="profile" alt="profile picture" className="rounded-full border-white shadow-lg h-11 w-11" />

@@ -53,9 +53,12 @@ export default function Profile() {
             </p>
           </div>
         </div>    
-        <div className="flex gap-4 mt-6">
-          <button className="px-5 py-2 rounded-xl bg-gray-100 text-gray-900 font-medium hover:bg-gray-200">
-            Message
+        <div className="flex gap-4 mt-6 w-35 hover:scale-110 border border-white-800 rounded-xl transition-transform duration-300 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi py-2 bi-pencil h-8 ml-2 mt-1" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+          </svg>
+          <button className="py-2 text-white-900 font-medium ">
+            Edit Profile
           </button>
         </div>
         <div className="mt-10 w-full">
@@ -66,7 +69,10 @@ export default function Profile() {
           ></textarea>
         </div>
         <div className="flex justify-end mt-10">
-            <button className="flex items-center hover:bg-red-950 bg-red-900 rounded-3xl h-20 p-8">
+            <button className="flex items-center hover:bg-blue-950 hover:scale-110 bg-blue-900 rounded-3xl h-10 p-8 mr-10 transition-transform duration-300 ease-in-out ">
+                <h1 className="text-3xl">Refer a Friend</h1>
+            </button>
+            <button className="flex items-center hover:bg-red-950 bg-red-900 hover:scale-110 rounded-3xl h-10 p-8 transition-transform duration-300 ease-in-out ">
                 <h1 className="text-3xl">Sign Out :(</h1>
             </button>
         </div>
