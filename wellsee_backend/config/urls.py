@@ -18,6 +18,8 @@ urlpatterns = [
     # User management
     path("users/", include("wellsee_backend.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    # Posts API
+    path('api/posts/', include('wellsee_backend.posts.urls')),
     # Your stuff: custom urls includes go here
     # ...
     # Media files
