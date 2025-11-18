@@ -1,0 +1,16 @@
+meta {
+  name: Profile
+  type: http
+  seq: 6
+}
+
+get {
+  url: 127.0.0.1:8000/users/auth/me/
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

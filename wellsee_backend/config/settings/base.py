@@ -95,6 +95,7 @@ LOCAL_APPS = [
     "wellsee_backend.users",
     "wellsee_backend.posts",
     "wellsee_backend.interactions",
+    "wellsee_backend.gamification",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
