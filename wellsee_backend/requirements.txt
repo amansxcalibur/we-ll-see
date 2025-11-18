@@ -18,3 +18,4 @@ djangorestframework-simplejwt
 whitenoise
 django-debug-toolbar
 django-extensions
+django-cors-headers
