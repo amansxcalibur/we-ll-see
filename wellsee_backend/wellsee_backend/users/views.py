@@ -47,6 +47,16 @@ class ProfileView(APIView):
     def get(self, request):
         return Response(UserSerializer(request.user).data)
 
+class PublicProfileView(APIView):
+    def get(self,request,username) :
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({"detail":"User not found"},status=status.HTTP_404_NOT_FOUND)
+        serializer=UserSerializer(user)
+        return Response(serializer.data)
+
+
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
@@ -54,7 +64,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     slug_url_kwarg = "username"
 
 
-user_detail_view = UserDetailView.as_view()
+user_detail_view = PublicProfileView.as_view()
 
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

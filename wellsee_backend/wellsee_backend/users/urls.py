@@ -6,6 +6,7 @@ from .views import (
     RegisterView,
     LoginView,
     ProfileView,
+    PublicProfileView
 )
 
 app_name = "users"
@@ -19,5 +20,5 @@ urlpatterns = [
     path("~redirect/", user_redirect_view, name="redirect"),
     path("~update/", user_update_view, name="update"),
 
-    path("<str:username>/", user_detail_view, name="detail"),
+    path("<str:username>/",user_detail_view , name="detail"),
 ]
