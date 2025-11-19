@@ -1,0 +1,303 @@
+openapi: 3.0.0
+info:
+  title: We'llSEE API
+  version: 0.1.0
+  description: API for the We'llSEE social media platform.
+servers:
+  - url: http://localhost:8000/
+    description: Local development server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        bio:
+          type: string
+        karma:
+          type: integer
+          readOnly: true
+
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          description: User ID of the post creator.
+          readOnly: true
+        content:
+          type: string
+        deadline:
+          type: string
+          format: date
+        image:
+          type: string
+          format: uri
+          description: URL to the post image.
+        status:
+          type: string
+          enum: [wellsee, completed]
+          default: wellsee
+        proof_media:
+          type: string
+          format: uri
+          description: URL to the proof media.
+          nullable: true
+        believes:
+          type: integer
+          readOnly: true
+        doubts:
+          type: integer
+          readOnly: true
+
+    Interaction:
+      type: object
+      properties:
+        post_id:
+          type: integer
+        interaction_type:
+          type: string
+          enum: [BELIEVE, DOUBT]
+
+paths:
+  /users/auth/register/:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                name:
+                  type: string
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Invalid input
+
+  /users/auth/login/:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refresh:
+                    type: string
+                  access:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid credentials
+
+  /users/auth/me/:
+    get:
+      summary: Get current user's profile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User profile data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Authentication credentials were not provided.
+
+  /users/{username}/:
+    get:
+      summary: Get a user's public profile
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Public user profile data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+  /api/posts/:
+    get:
+      summary: List all posts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '401':
+          description: Authentication credentials were not provided.
+    post:
+      summary: Create a new post
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                deadline:
+                  type: string
+                  format: date
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Post created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid input
+        '401':
+          description: Authentication credentials were not provided.
+
+  /api/posts/{id}/:
+    patch:
+      summary: Update a post
+      description: Partially update a post. Can be used to mark a post as 'completed' and provide proof media.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [completed]
+                proof_media:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Post updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid input
+        '401':
+          description: Authentication credentials were not provided.
+        '403':
+          description: Permission denied
+        '404':
+          description: Post not found
+
+  /api/interactions/:
+    post:
+      summary: Believe or Doubt a post
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Interaction'
+      responses:
+        '200':
+          description: Interaction removed or switched
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+        '201':
+          description: Interaction created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+        '400':
+          description: Invalid input
+        '401':
+          description: Authentication credentials were not provided.
+        '404':
+          description: Post not found
