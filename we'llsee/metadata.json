@@ -1,0 +1,8 @@
+{
+  "name": "We'llSEE",
+  "description": "A high-stakes social accountability platform where users post future plans and the community bets on their success with Believe or Doubt votes. Prove the haters wrong.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
