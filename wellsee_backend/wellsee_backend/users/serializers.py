@@ -38,3 +38,26 @@ class LoginSerializer(serializers.Serializer):
 
         data["user"] = user
         return data
+
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['name', 'email', 'username']
+        extra_kwargs = {
+            'username': {'required': False},
+            'email': {'required': False}
+        }
+
+    def validate_username(self, value):
+        """Check if username is already taken by another user"""
+        user = self.instance
+        if User.objects.exclude(pk=user.pk).filter(username=value).exists():
+            raise serializers.ValidationError("This username is already taken.")
+        return value
+
+    def validate_email(self, value):
+        """Check if email is already taken by another user"""
+        user = self.instance
+        if User.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError("This email is already in use.")
+        return value
