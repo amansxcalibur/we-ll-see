@@ -1,6 +1,12 @@
-# We’llSEE 
-The Reverse Social Media
+
+<div align="center">
+  <h1>
+We'llSEE
+</h1>
+
+The Reverse Social Media <br>
 A project by [@amansxcalibur](https://github.com/amansxcalibur/), [@itsabhinavm](https://github.com/itsabhinavm/) and [@hrideshmg](https://github.com/hrideshmg)
+</div>
 
 ### Overview
 
@@ -9,15 +15,15 @@ We’llSEE is a web-based platform designed to support accountability through fu
 As deadlines approach, the system prompts users to confirm completion by submitting proof. Verification is handled by moderators review. Based on the outcome, the platform updates the user’s karma, rankings on leaderboards, and relevant activity records.
 ### Key Features
 
-Plan Posting – Users declare upcoming goals with set deadlines.
+- Plan Posting – Users declare upcoming goals with set deadlines.
 
-Believe/Doubt Reactions – Community engagement that encourages commitment.
+- Believe/Doubt Reactions – Community engagement that encourages commitment.
 
-Proof-Based Verification – Upload images/documents as evidence of completion.
+- Proof-Based Verification – Upload images/documents as evidence of completion.
 
-Karma System – Points for completing plans; penalties for failing.
+- Karma System – Points for completing plans.
 
-Leaderboards – Transparent ranking based on accountability.
+- Leaderboards – Transparent ranking based on accountability.
 
 ### Installation
 
@@ -54,3 +60,4 @@ Leaderboards – Transparent ranking based on accountability.
    # Run back-end
    django manage.py runserver
    ```
+
